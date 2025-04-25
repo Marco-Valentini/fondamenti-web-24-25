@@ -1,0 +1,240 @@
+/* Definiamo un grid layout per il corpo della pagina HTML */
+body{
+    display: grid;
+    grid-template-columns: 20vw 50vw 20vw 10vw;
+    grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh 10vh 30vh;
+}
+/* Procediamo andando ad inserire gli elementi della pagina html all'interno della griglia di HTML */
+
+
+header{
+    grid-column: 1;
+    grid-row:1/3;
+    /*border: solid 1px #000;*/
+    text-align: center; /* Allinea all'interno */
+}
+
+#mainnav{
+    grid-column: 1;
+    grid-row: 3/6;
+    /*border: solid 1px #000;*/
+}
+
+#secondnav{
+    grid-column: 1;
+    grid-row: 8;
+    /*border: solid 1px #000;*/
+}
+
+main{
+    grid-column: 2;
+    grid-row: 1 / 9;
+    /*border: solid 1px #000;*/
+    display: flex;
+    flex-direction: column; /* Dobbiamo posizionare i 2 div relativi a storie e post*/
+    border-right: 1px solid #ccc; /* Linea per separare dall'aside */
+}
+
+aside{
+    grid-column: 3;
+    grid-row: 1/6;
+    /*border: solid 1px #000;*/
+}
+
+footer{
+    grid-column: 3;
+    grid-row: 8;
+    /*border: solid 1px #000;*/
+    padding-top: 5vh; /* Spazio sopra il footer per spingerlo giù */
+    align-self: end;
+}
+
+/* Una volta posizionati gli elementi principali, passiamo agli elemetnti secondari*/
+
+img#logo{
+    width: auto;
+    height: 25vh;
+}
+
+#account_manager{
+    /*border: solid 1px #000;*/
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+}
+
+#account_manager a{
+    display: flex;
+    gap: 0.5rem;
+}
+
+img#profile-picture {
+    border-radius: 50%;
+    width: 50px; /* Dimensione immagine */
+    height: 50px;
+    object-fit: cover; /* l'immagine riempie completamente il contenitore mantenendo le proporzioni*/
+}
+
+a.profile-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    color: #333; /* Colore del testo */
+}
+
+.profile-link:hover .profile-name {
+    text-decoration: underline; /* Sottolinea il nome al passaggio del mouse */
+}
+
+.profile-name {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+nav li, aside li{
+    list-style: none;
+}
+
+#recommendations a{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#recommendations{
+    margin-top: 1rem; /* Spazio sopra la sezione */
+}
+
+#recommendations ul {
+    padding: 0;
+    margin: 0;
+}
+
+#recommendations li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Spazio tra immagine e nome */
+    margin-bottom: 1rem; /* Spazio tra gli elementi della lista */
+    list-style: none; /* Rimuove i punti elenco */
+}
+
+/* foto degli utenti nella lista delle raccomandazioni */
+.user-photo {
+    width: 30px; /* Dimensione immagine */
+    height: 30px;
+    border-radius: 50%; /* Forma circolare */
+    object-fit: cover;
+}
+
+.vertical-scroll {
+    overflow-y: auto; /* funziona come scroll ma ha un effetto migliore*/
+    /*border: 1px solid #ccc;*/
+    min-height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 1vh;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 1rem;
+    /*border: 1px solid #ccc;*/
+    min-height: 45vh;
+    width: 35vw;
+}
+
+.post-image {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.caption {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.5rem 0;
+    text-align: left;
+    width: 80%;
+}
+
+.comment-form {
+    display: flex;
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 0.5rem;
+    /*border: 1px solid #ccc;*/
+    border-radius: 5px 0 0 5px;
+    font-size: 0.9rem;
+}
+
+.comment-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 0.9rem;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.comment-button:hover {
+    background-color: #0056b3;
+}
+
+.horizontal-scroll {
+    overflow-x: auto;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    /*border: 1px solid #ccc;*/
+    min-height: 22vh;
+}
+
+.story {
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50%;
+}
+
+.story img {
+    width: 15vh;
+    height: 15vh;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid cornflowerblue; /* Optional: Add a border around the image */
+}
+
+.story p {
+    font-size: 0.9rem;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    header,
+    nav,
+    aside,
+    footer {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    main{
+        grid-column: 1/5;
+        grid-row: 1 / 9;
+    }
+}
+

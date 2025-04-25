@@ -1,0 +1,109 @@
+/* Definiamo il layout a griglia con grid*/
+body{
+    display:grid;
+    grid-template-columns: 20vw 80vw;
+    grid-template-rows: 30vh 5vh 45vh 20vh;
+}
+
+/* Posizioniamo gli elementi all'interno della griglia */
+header#app-logo{
+    grid-column: 1;
+    grid-row: 1;
+    /*border: solid 1px #000;*/
+}
+#mainnav{
+    grid-column: 1;
+    grid-row: 2/4;
+    /*border: solid 1px #000;*/
+}
+
+#secondnav{
+    grid-column: 1;
+    grid-row: 4;
+    /*border: solid 1px #000;*/
+}
+header#profile-header{
+    grid-column: 2;
+    grid-row: 1;
+    /*border: solid 1px blue;*/
+    display: flex;
+    align-items: center; /* Allinea rispetto al cross-axis (verticale) */
+    gap: 2vw;
+
+}
+
+#profile-picture{
+    border-radius: 50%;
+    width: 20vh;
+    height: 20vh;
+}
+
+header ul{
+    display: flex; /* Mostriamo le statistiche del profilo una di fianco all'altra*/
+    flex-direction: row;
+    gap: 1vw;
+    padding: 0;
+    align-content: center;
+    /*justify-content: space-evenly;*/
+}
+
+header li, nav li{
+    list-style: none;
+}
+
+nav#profile-nav{
+    display: flex;
+    grid-column: 2;
+    grid-row: 2;
+    justify-content: space-evenly;
+    /*border: solid 1px red;*/
+}
+nav#profile-nav ul{
+    width: 100%;
+    display: flex; /* Specifichiamo flex per poi specificare gap, align-items e justify-content*/
+    flex-direction: row;
+    gap: 25vw;
+    align-items: center;
+    justify-content: center;
+}
+
+main{
+    grid-column: 2;
+    grid-row: 3 / 5;
+    overflow-y: auto;
+    /*border: solid 1px #000;*/
+    display: flex;
+    flex-wrap: wrap; /* Permette di andare a capo */
+    align-content: space-around; /* Allinea gli elementi in modo uniforme, si può usare solo se prima si è specificato wrap */
+    gap: 1px;
+}
+
+.post{
+    width: 33%;
+    height: 50%;
+    /*    border-radius: 10px;*/
+    /*    border: solid 1px #000;*/
+}
+
+div.post img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    header#app-logo,
+    nav,
+    aside,
+    footer {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    nav#profile-nav,
+    main,
+    header#profile-header {
+        grid-column: 1/3;
+    }
+}
+

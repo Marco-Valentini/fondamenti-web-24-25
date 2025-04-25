@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style-crea.css">
+    <meta name="description" content="Poligram è un social network per condividere e scoprire nuove idee tra le persone del Politecnico di Bari.">
+    <meta name="author" content="Marco Valentini">
+</head>
+<body>
+<fieldset>
+    <legend>Nuovo Post</legend>
+    <form action="home.html" method="post">
+        <label for="title">Titolo:</label><br>
+        <input type="text" id="title" name="title" required placeholder="Inserisci qui il titolo del tuo post"><br>
+        <label for="location">Luogo:</label><br>
+        <input type="text" id="location" name="location" list="mySuggestion"><br>
+        <datalist id="mySuggestion">
+            <option value="Bari">Bari</option>
+            <option value="Politecnico di Bari">Politecnico di Bari</option>
+            <option value="Lecce">Lecce</option>
+            <option value="Foggia">Foggia</option>
+            <option value="Taranto">Taranto</option>
+            <option value="Brindisi">Brindisi</option>
+            <option value="BAT">Barletta Andria Trani</option>
+        </datalist>
+        <label for="description">Descrizione:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" required placeholder="Inserisci qui la caption del tuo post"></textarea><br>
+        <label for="post_comments">Accetta Commenti da:</label><br>
+        <select id="post_comments" name="post_comments">
+            <option value="Everyone">Tutti</option>
+            <option value="Follower">Solo Follower</option>
+            <option value="No">Nessuno</option>
+        </select><br>
+        <label for="post_shares">Permetti Condivisioni:</label><br>
+        <select id="post_shares" name="post_shares">
+            <option value="False">Si</option>
+            <option value="True">No</option>>
+        </select><br>
+        <input type="checkbox" id="hide_likes" name="hide_likes" value="True">
+        <label for="hide_likes" id="hide_likes_label">Nascondi il numero di "Mi Piace"</label><br>
+        <input type="file" id="image" name="image" accept="image/jpeg, image/jpg, image/png" multiple><br>
+        <input type="submit" value="Pubblica">
+        <input type="reset" value="Annulla">
+        <a href="home.html" class="button-link">Torna alla Home</a>
+    </form>
+</fieldset>
+</body>
+</html>

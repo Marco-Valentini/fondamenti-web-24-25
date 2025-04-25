@@ -1,0 +1,125 @@
+/* Reset base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body styling */
+body {
+    background-color: #fafafa;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Fieldset container */
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Legend as a title */
+legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Label spacing */
+label {
+    display: block;
+    margin: 1rem 0 0.4rem;
+    font-weight: 500;
+    color: #444;
+}
+
+#hide_likes{
+    margin-bottom: 1rem;
+}
+
+label#hide_likes_label{
+    display: inline;
+    padding-bottom: 5px;
+    font-weight: 500;
+    color: #444;
+}
+
+/* Inputs and select elements */
+input[type="text"],
+textarea,
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fdfdfd;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus,
+input[type="file"]:focus {
+    border-color: #3897f0;
+    outline: none;
+}
+
+/* Checkbox label alignment */
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Submit and reset buttons */
+input[type="submit"],
+input[type="reset"] {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #3897f0;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    transition: background-color 0.2s;
+}
+
+input[type="reset"] {
+    background-color: #e74c3c;
+}
+
+input[type="submit"]:hover {
+    background-color: #2f80ed;
+}
+
+input[type="reset"]:hover {
+    background-color: #c0392b;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    background-color: #95a5a6;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.button-link:hover {
+    background-color: #7f8c8d;
+}
+
