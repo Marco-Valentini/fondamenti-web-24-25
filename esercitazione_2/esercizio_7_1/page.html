@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Esercizio 7.1</title>
+  <style>
+    body{
+      display: flex;
+    }
+    .button{
+    }
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        row-gap: 2vw;
+    }
+    /* Reset some browser defaults */
+    * {
+        box-sizing: border-box; /* Makes padding/border part of the element's width/height */
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* Common system fonts */
+        background-color: #f4f7f6; /* Light grey background */
+        color: #333; /* Darker text color for readability */
+        padding: 30px; /* Add padding around the whole content */
+        display: flex; /* Use flexbox for body layout */
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center content horizontally */
+        min-height: 100vh; /* Ensure body takes at least full viewport height */
+    }
+
+    /* Style the form container */
+    form {
+        display: flex; /* Align input and button horizontally */
+        gap: 10px; /* Space between input and button */
+        margin-bottom: 30px; /* Space below the form */
+        width: 100%; /* Make form take full width of its container (centered by body) */
+        max-width: 500px; /* Limit maximum width of the form */
+    }
+
+    /* Style the text input */
+    form input[type="text"] {
+        flex-grow: 1; /* Allow input to take up available space */
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    /* Style the submit button */
+    form input[type="submit"] {
+        padding: 12px 20px;
+        background-color: #5c9ded; /* A nice blue */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+    }
+
+    form input[type="submit"]:hover {
+        background-color: #4a8ad8; /* Slightly darker blue on hover */
+    }
+
+    /* Style the shopping list container */
+    #shopping-list {
+        width: 100%;
+        max-width: 500px; /* Match the form width */
+        background-color: #fff; /* White background for the list area */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    /* Style the unordered list itself */
+    #shopping-list ul {
+        list-style: none; /* Remove default bullet points */
+        /* Padding is already reset by '*' rule */
+    }
+
+    /* Style each list item */
+    li {
+        display: flex;
+        align-items: center; /* Vertically center text and button */
+        justify-content: space-between; /* Push text and button apart */
+        padding: 10px 0; /* Padding top/bottom inside the li */
+        border-bottom: 1px solid #eee; /* Separator line */
+        font-size: 1.05rem;
+    }
+
+    /* Style the last list item to remove its bottom border */
+    li:last-child {
+        border-bottom: none;
+    }
+
+    /* Style the text within the list item (optional, could wrap in a span if needed) */
+    li span { /* Assuming you might wrap the text in a span later */
+        margin-right: 15px; /* Ensure some space if text is long */
+        word-break: break-word; /* Prevent long text from overflowing */
+    }
+
+
+    /* Style the remove button */
+    li button.button { /* Make selector more specific */
+        background-color: #e74c3c; /* Red color for removal */
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        margin-left: 10px; /* Add some space between text and button */
+        transition: background-color 0.2s ease-in-out;
+        flex-shrink: 0; /* Prevent button from shrinking if text is long */
+    }
+
+    li button.button:hover {
+        background-color: #c0392b; /* Darker red on hover */
+    }
+  </style>
+</head>
+<body>
+<form action="page.html" method="post">
+  <input type="text" name="item">
+  <input type="submit" value="Submit">
+</form>
+<div id="shopping-list">
+  <ul>
+
+  </ul>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
