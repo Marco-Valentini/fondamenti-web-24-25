@@ -14,7 +14,7 @@ In questa seconda esercitazione del corso di Fondamenti del Web 24/25 andremo a 
 ## Compiti per casa
 
 - Svolgere alcuni task follow-up indicati come TO-DO nei codici
-- Esplorare autonomamente la [documentazione]`(https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events)` di JavaScript e degli Eventi 
+- Esplorare autonomamente la [documentazione](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events) di JavaScript e degli Eventi 
 
 ## Crediti
 
