@@ -1,0 +1,176 @@
+/* src/App.css */
+.container {
+    max-width: 600px; /* Larghezza fissa per il contenuto principale */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+}
+
+/* Stili per i form di autenticazione e creazione post */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spazio tra gli elementi del form */
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #efefef;
+    border-radius: 3px;
+}
+
+form h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+    width: 95%; /* Leggermente meno del 100% per il padding */
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+form button[type="submit"] {
+    padding: 10px 15px;
+    background-color: #3897f0;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+form button[type="submit"]:hover {
+    background-color: #3082ce;
+}
+
+.toggle-form-button {
+    background: none;
+    border: none;
+    color: #0095f6;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin: 10px auto;
+}
+.toggle-form-button:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.success-message {
+    color: green;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Navbar Semplice */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.navbar button {
+    padding: 8px 12px;
+    background-color: #ed4956;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Stili per il Post (da Post.css) */
+.post {
+    border: 1px solid #dbdbdb;
+    margin-bottom: 24px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.post-header {
+    padding: 12px 16px;
+    font-weight: 600;
+    border-bottom: 1px solid #efefef;
+}
+
+.post-image-container {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Immagine quadrata */
+    background-color: #efefef;
+    overflow: hidden; /* Necessario con object-fit */
+}
+
+.post-image-container img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Immagine copre e viene ritagliata se necessario */
+}
+
+.post-image-container .image-error-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+    color: #757575;
+    font-style: italic;
+}
+
+.post-actions {
+    padding: 8px 16px;
+}
+
+.post-actions button {
+    background: none;
+    border: none;
+    color: #0095f6;
+    font-weight: 600;
+    padding: 8px 0;
+    margin-right: 16px;
+    cursor: pointer;
+}
+.post-actions button:hover {
+    text-decoration: underline;
+}
+
+.post-caption-container {
+    padding: 0 16px 12px 16px;
+}
+
+.post-caption-container .author-username {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.post-caption {
+    margin: 0;
+    display: inline;
+    word-break: break-word;
+}
