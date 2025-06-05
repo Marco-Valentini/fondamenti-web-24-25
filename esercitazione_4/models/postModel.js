@@ -1,8 +1,24 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    // TODO compilare con lo schema del post
-    // TODO aggiungi commento lasciato come homework
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Riferimento al modello User
+        required: true,
+    },
+    imageUrl: {
+        type: String, // URL dell'immagine del post
+        required: [true, "L'URL dell'immagine è obbligatorio"],
+    },
+    caption: {
+        type: String,
+        trim: true,
+        default: '',
+    },
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Utenti a cui piace il post
+    }],
     // comments: [{ // Opzionale per ora
     //     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     //     text: String,

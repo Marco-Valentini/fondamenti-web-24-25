@@ -5,13 +5,25 @@ const User = require('../models/userModel'); // Potrebbe servire per validare l'
 // Crea un nuovo post
 exports.createPost = async (req, res) => {
     try {
-        // TODO prendi dal corpo della richiesta un imageUrl, la caption e lo userId (vedi verifyAccessToken)
+        const { imageUrl, caption } = req.body;
+        const authorId = req.userId; // Ottenuto dal middleware verifyAccessToken
 
-        // TODO crea e salva nuovo post (con modello Post) - metodi accettati new + save o create
+        if (!imageUrl) {
+            return res.status(400).json({ message: "L'URL dell'immagine è obbligatorio." });
+        }
 
-        // TODO Popola l'autore per restituire più informazioni (opzionale)
+        const newPost = new Post({
+            author: authorId,
+            imageUrl,
+            caption
+        });
 
-        // TODO rispondi con codice 201 e l'oggetto post popolato
+        await newPost.save();
+        // Popola l'autore per restituire più informazioni (opzionale)
+        const populatedPost = await Post.findById(newPost._id).populate('author', 'username profilePicture');
+
+
+        res.status(201).json({ message: "Post creato con successo!", post: populatedPost });
 
     } catch (error) {
         console.error("Errore creazione post:", error);
@@ -20,54 +32,6 @@ exports.createPost = async (req, res) => {
             return res.status(400).json({ message: messages.join('. ') });
         }
         res.status(500).json({ message: "Errore del server durante la creazione del post." });
-    }
-};
-
-
-// Ottieni un post specifico per ID
-exports.getPostById = async (req, res) => {
-    try {
-        // TODO prendi il post ID dalla richiesta, poi cerca tramite id
-
-        // TODO rispondi al client con il post formato json
-
-    } catch (error) {
-        console.error("Errore recupero post per ID:", error);
-        if (error.kind === 'ObjectId') { // Errore comune se l'ID non è un ObjectId valido
-            return res.status(400).json({ message: "ID del post non valido." });
-        }
-        res.status(500).json({ message: "Errore del server." });
-    }
-};
-
-// Elimina un post
-exports.deletePost = async (req, res) => {
-    try {
-        // TODO prendiamo dalla richiesta ID del post e dell'utente
-
-        // TODO recuperiamo il post
-
-        // TODO Controlla se l'utente autenticato è l'autore del post
-
-        // TODO cancella il post (findByIdAndDelete)
-
-        // TODO rispondo con un json
-
-    } catch (error) {
-        console.error("Errore eliminazione post:", error);
-        if (error.kind === 'ObjectId') {
-            return res.status(400).json({ message: "ID del post non valido." });
-        }
-        res.status(500).json({ message: "Errore del server." });
-    }
-};
-
-// Aggiorna un post
-exports.updatePost = async (req, res) => {
-    try {
-        // TODO homework
-    } catch (e) {
-        console.error("Errore aggiornamento post:", e);
     }
 };
 
@@ -100,8 +64,95 @@ exports.getAllPosts = async (req, res) => {
     }
 };
 
+// Ottieni un post specifico per ID
+exports.getPostById = async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const post = await Post.findById(postId)
+            .populate('author', 'username profilePicture email'); // Popola info autore
 
-// Mettere "like" a un post - vedere come homework
+        if (!post) {
+            return res.status(404).json({ message: "Post non trovato." });
+        }
+        res.json({ message: "Post recuperato con successo.", post });
+    } catch (error) {
+        console.error("Errore recupero post per ID:", error);
+        if (error.kind === 'ObjectId') { // Errore comune se l'ID non è un ObjectId valido
+            return res.status(400).json({ message: "ID del post non valido." });
+        }
+        res.status(500).json({ message: "Errore del server." });
+    }
+};
+
+
+// Aggiorna un post
+exports.updatePost = async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const { caption } = req.body; // Per ora, permettiamo solo di aggiornare la caption
+        const userId = req.userId; // ID dell'utente autenticato
+
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({ message: "Post non trovato." });
+        }
+
+        // Controlla se l'utente autenticato è l'autore del post
+        if (post.author.toString() !== userId) {
+            return res.status(403).json({ message: "Non autorizzato ad aggiornare questo post." });
+        }
+
+        if (caption !== undefined) {
+            post.caption = caption;
+        }
+        // Aggiungi qui altri campi aggiornabili se necessario
+
+        const updatedPost = await post.save();
+        const populatedPost = await Post.findById(updatedPost._id).populate('author', 'username profilePicture');
+
+        res.json({ message: "Post aggiornato con successo!", post: populatedPost });
+
+    } catch (error) {
+        console.error("Errore aggiornamento post:", error);
+        if (error.kind === 'ObjectId') {
+            return res.status(400).json({ message: "ID del post non valido." });
+        }
+        res.status(500).json({ message: "Errore del server." });
+    }
+};
+
+// Elimina un post
+exports.deletePost = async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const userId = req.userId; // ID dell'utente autenticato
+
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({ message: "Post non trovato." });
+        }
+
+        // Controlla se l'utente autenticato è l'autore del post
+        if (post.author.toString() !== userId) {
+            return res.status(403).json({ message: "Non autorizzato ad eliminare questo post." });
+        }
+
+        await Post.findByIdAndDelete(postId);
+
+        res.json({ message: "Post eliminato con successo." });
+
+    } catch (error) {
+        console.error("Errore eliminazione post:", error);
+        if (error.kind === 'ObjectId') {
+            return res.status(400).json({ message: "ID del post non valido." });
+        }
+        res.status(500).json({ message: "Errore del server." });
+    }
+};
+
+// Mettere "like" a un post
 exports.likePost = async (req, res) => {
     try {
         const postId = req.params.postId;

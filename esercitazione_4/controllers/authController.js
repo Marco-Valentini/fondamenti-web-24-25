@@ -21,10 +21,17 @@ const generateTokens = (userId) => {
 // Registrazione Utente
 exports.registerUser = async (req, res) => {
     try {
-        // TODO prendi i dati dell'utente dal corpo della richiesta
+        const { username, email, password, bio, profilePicture } = req.body;
 
-        // TODO Controlla se l'utente o l'email esistono già -> metodo findOne di mongoose
-
+        // Controlla se l'utente o l'email esistono già
+        const existingUserByUsername = await User.findOne({ username });
+        if (existingUserByUsername) {
+            return res.status(400).json({ message: "Username già in uso." });
+        }
+        const existingUserByEmail = await User.findOne({ email });
+        if (existingUserByEmail) {
+            return res.status(400).json({ message: "Email già in uso." });
+        }
 
         const newUser = new User({ username, email, password, bio, profilePicture });
         await newUser.save(); // La password viene hashata dal middleware pre-save in userModel
@@ -45,17 +52,20 @@ exports.registerUser = async (req, res) => {
 // Login Utente
 exports.loginUser = async (req, res) => {
     try {
-        // TODO prendi email e password dal corpo della richiesta
         const { email, password } = req.body;
-        // TODO verifica la presenza di mail e password, altrimenti rispondi con cod errore 400
-
-        // TODO la ricerca dell'utente viene fatta per email
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email e password sono obbligatori." });
+        }
+        // la ricerca dell'utente viene fatta per email
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).json({ message: "Credenziali non valide." }); // Messaggio generico
         }
-        // TODO possiamo sfruttare il metodo comparePassword dell'utente per verificare che le password coincidano
 
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+            return res.status(401).json({ message: "Credenziali non valide." }); // Messaggio generico
+        }
         // Se le credenziali sono valide, allora creiamo i token
         const { accessToken, refreshToken } = generateTokens(user._id);
 
@@ -90,19 +100,48 @@ exports.loginUser = async (req, res) => {
 
 // Refresh Access Token
 exports.refreshToken = async (req, res) => {
-    // TODO prendiamo il cookie dalla richiesta, accedendo al campo 'jwt'
+    const cookies = req.cookies;
+    if (!cookies?.jwt) {
+        return res.status(401).json({ message: "Non autorizzato: Refresh token mancante." });
+    }
 
+    const refreshTokenFromCookie = cookies.jwt;
 
-    //TODO cerca il token nel db, se non si trova rispondi con 403
+    // debug
+    console.log(`[REFRESH] Tentativo di refresh con token dal cookie: ${refreshTokenFromCookie}`);
+    const foundToken = await RefreshToken.findOne({ token: refreshTokenFromCookie });
+    if (!foundToken) {
+        console.log(`[REFRESH] Token ${refreshTokenFromCookie} NON trovato nel DB. Accesso negato.`);
+        return res.status(403).json({ message: "Proibito: Refresh token non valido o scaduto (non in DB)." });
+    }
+    console.log(`[REFRESH] Token ${refreshTokenFromCookie} TROVATO nel DB. Procedo con la verifica JWT.`);
 
     try {
-        // TODO Cerca il refresh token nel DB
+        // Cerca il refresh token nel DB
+        const foundToken = await RefreshToken.findOne({ token: refreshTokenFromCookie });
+        if (!foundToken) {
+            // Se il token non è nel DB ma era nel cookie, potrebbe essere stato compromesso o è vecchio.
+            // Per maggiore sicurezza, potremmo invalidare tutti i refresh token di questo utente
+            // e richiedere un nuovo login. Per ora, restituiamo solo un errore.
+            return res.status(403).json({ message: "Proibito: Refresh token non valido o scaduto." });
+        }
 
-        // TODO se il token non è trovato allora rispondi con 403
+        // Verifica il refresh token
+        jwt.verify(refreshTokenFromCookie, process.env.REFRESH_TOKEN_SECRET, async (err, decoded) => {
+            if (err || foundToken.userId.toString() !== decoded.userId) {
+                // Se la verifica fallisce o l'ID utente nel token non corrisponde a quello nel DB
+                return res.status(403).json({ message: "Proibito: Refresh token non valido o scaduto." });
+            }
 
-        // TODO Verifica il refresh token con jwt.verify https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
-        // TODO Il refresh token è valido, genera un nuovo access token, con jwt.sign https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
+            // Il refresh token è valido, genera un nuovo access token
+            const newAccessToken = jwt.sign(
+                { userId: decoded.userId },
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: '15m' }
+            );
 
+            res.json({ accessToken: newAccessToken });
+        });
     } catch (error) {
         console.error("Errore refresh token:", error);
         res.status(500).json({ message: "Errore del server durante il refresh del token." });
@@ -111,16 +150,24 @@ exports.refreshToken = async (req, res) => {
 
 // Logout Utente
 exports.logoutUser = async (req, res) => {
-    // TODO recupera il cookie dalla richiesta e il jwt dal cookie
+    const cookies = req.cookies;
+    if (!cookies?.jwt) {
+        return res.sendStatus(204); // No content, nessun cookie da eliminare
+    }
+    const refreshTokenFromCookie = cookies.jwt;
 
+    // log per debug
+    console.log(`[LOGOUT] Tentativo di eliminare refresh token dal DB: ${refreshTokenFromCookie}`);
+    const result = await RefreshToken.deleteOne({ token: refreshTokenFromCookie });
+    console.log(`[LOGOUT] Risultato deleteOne: deletedCount = ${result.deletedCount}`);
 
+    if (result.deletedCount === 0) {
+        console.warn(`[LOGOUT] ATTENZIONE: Nessun refresh token trovato nel DB da eliminare per il token: ${refreshTokenFromCookie}`);
+    }
 
     try {
-        //TODO Rimuovi il refresh token dal database -> metti il risultato di deleteOne in un result
-
-        if (result.deletedCount === 0) {
-            console.warn(`[LOGOUT] ATTENZIONE: Nessun refresh token trovato nel DB da eliminare per il token: ${refreshTokenFromCookie}`);
-        }
+        // Rimuovi il refresh token dal database
+        await RefreshToken.deleteOne({ token: refreshTokenFromCookie });
 
         // Pulisci il cookie
         res.clearCookie('jwt', {
@@ -135,3 +182,5 @@ exports.logoutUser = async (req, res) => {
         res.status(500).json({ message: "Errore del server durante il logout." });
     }
 };
+
+// qui non serve esportare nulla perché gli exports sono fatti contestualmente alla definizione delle funzioni

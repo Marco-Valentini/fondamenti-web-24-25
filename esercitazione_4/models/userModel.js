@@ -3,7 +3,41 @@ const bcrypt = require('bcryptjs');
 
 // sfruttiamo lo schemaType per aggiungere validatori sui campi degli oggetti da inserire nel db
 const userSchema = new mongoose.Schema({
-    // TODO compilare lo schema
+    username: {
+        type: String,
+        required: [true, "L'username è obbligatorio"],
+        unique: true,
+        trim: true,
+        lowercase: true,
+    },
+    email: {
+        type: String,
+        required: [true, "L'email è obbligatoria"],
+        unique: true,
+        trim: true,
+        lowercase: true,
+        // Regex semplice per validazione email
+        match: [/\S+@\S+\.\S+/, "L'email non è valida"],
+    },
+    password: {
+        type: String,
+        required: [true, "La password è obbligatoria"],
+        minlength: [6, "La password deve essere di almeno 6 caratteri"],
+    },
+    bio: {
+        type: String,
+        default: '',
+    },
+    profilePicture: {
+        type: String, // URL dell'immagine del profilo
+        default: 'url_placeholder_immagine_profilo_default.jpg',
+    },
+    // followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Opzionale per ora
+    // following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Opzionale per ora
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 // Middleware pre-save per hashare la password prima di salvarla
