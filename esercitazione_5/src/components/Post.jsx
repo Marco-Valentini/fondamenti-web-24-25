@@ -1,13 +1,13 @@
 /* Componente funzionale per visualizzare un singolo post
 Riceve 'post' e 'currentUser' come props*/
+import React, { useState } from 'react';
 
 function Post({ post, currentUser, onDeletePost, onLikePost }) {
     // Verifica se l'utente corrente è l'autore del post
     const isAuthor = currentUser && post.author?._id === currentUser?.id;
 
     // Verifica se l'utente corrente ha messo "like" al post
-    // Lo stato del like è determinato dalla prop 'post.likes' -> serve per gestire sotto il rendering condizionale
-    const hasLiked = currentUser && post.likes?.some(likeId => likeId === currentUser?.id);
+    const [hasLiked, setHasLiked] = useState(currentUser && post.likes?.some(likeId => likeId === currentUser?.id));
 
     return (
         // JSX per rappresentare un post
@@ -32,7 +32,7 @@ function Post({ post, currentUser, onDeletePost, onLikePost }) {
 
             <div className="post-actions">
                 {currentUser && ( // Mostra il bottone like solo se l'utente è loggato
-                    <button onClick={() => onLikePost(post._id)}>
+                    <button onClick={() => {onLikePost(post._id); setHasLiked(!hasLiked || post.likes === 0) }}>
                         {hasLiked ? 'Non mi piace più' : 'Mi Piace'} ({post.likes?.length || 0})
                     </button>
                 )}

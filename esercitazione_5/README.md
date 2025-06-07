@@ -60,3 +60,15 @@ Questa esercitazione si concentra sulla creazione di un frontend didattico per P
     *   Logout.
 
 **NB**:Questa versione è volutamente semplificata per scopi didattici, omettendo la gestione avanzata degli errori API, il refresh automatico del token, e ottimizzazioni complesse.
+
+## Immagini di test
+Di seguito i link di alcune immagini stock che potreste usare durante la fase di prototipazione:
+- [immagine 1](https://cdn.pixabay.com/photo/2025/05/11/22/31/man-9594075_1280.jpg)
+
+- [immagine 2](https://cdn.pixabay.com/photo/2025/04/22/09/32/daisy-9549631_1280.jpg)
+
+- [immagine 3](https://cdn.pixabay.com/photo/2025/05/26/10/27/rock-9622937_1280.jpg)
+
+- [immagine 4](https://cdn.pixabay.com/photo/2025/05/31/20/23/trees-9634157_1280.jpg)
+
+- [immagine 5](https://cdn.pixabay.com/photo/2024/06/21/11/41/ai-generated-8844218_1280.jpg)

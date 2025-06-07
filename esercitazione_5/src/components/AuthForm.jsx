@@ -3,11 +3,18 @@ import React, { useState } from 'react';
 // Componente funzionale per gestire sia login che registrazione
 // Riceve 'onSubmitForm' (funzione per gestire l'invio) e 'isLogin' (booleano) come props
 function AuthForm({ onSubmitForm, formType}) {
-    // TODO useState Hook per gestire lo stato locale dei campi del form
+    // useState Hook per gestire lo stato locale dei campi del form
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState(''); // Solo per la registrazione
 
-    // TODO richiamare la relativa funzione passata dall'app
     const handleSubmit = (event) => {
-
+        event.preventDefault(); // Evita il ricaricamento della pagina (slide 36: Form in React)
+        if (formType === 'login') {
+            onSubmitForm({ email, password });
+        } else {
+            onSubmitForm({ username, email, password });
+        }
     };
 
     // JSX per il rendering del form
@@ -15,8 +22,8 @@ function AuthForm({ onSubmitForm, formType}) {
         <form onSubmit={handleSubmit}>
             <h2>{formType === 'login' ? 'Login' : 'Registrati'}</h2>
 
-            {// TODO Gestire il Rendering condizionale del campo username
-                (<div>
+            {formType === 'register' && ( // Rendering condizionale del campo username
+                <div>
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"

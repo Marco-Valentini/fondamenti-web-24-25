@@ -4,6 +4,7 @@ import './App.css';
 import AuthForm from './components/AuthForm';
 import Post from './components/Post';
 import CreatePostForm from './components/CreatePostForm';
+import Navbar from "./components/Navbar";
 
 // URL base dell'API, preso dalle variabili d'ambiente
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -33,7 +34,7 @@ function App() {
                 }
 
                 // NOTA: Per questo esempio, assumiamo che il token sia valido
-                // TODO: effettua richiesta fetch
+
                 const response = await fetch(`${API_BASE_URL}${endpoint}`, { ...options, headers });
                 const responseData = response.status === 204 ? null : await response.json();
 
@@ -44,13 +45,21 @@ function App() {
                 }
                 return responseData;
             };
-            // TODO aggiorna utente e token in local storage
+
             const storedUser = localStorage.getItem('user');
             const token = localStorage.getItem('accessToken'); // Lo leggiamo comunque per decidere il flusso
 
             try {
-                //TODO verifica se utente e token sono presenti e allora modificastato utente e stato post
-
+                if (storedUser && token) {
+                    setCurrentUser(JSON.parse(storedUser));
+                    // Carica i post se l'utente è "loggato" (token presente)
+                    const postsData = await fetchDataForEffect('/posts');
+                    if (postsData) setPosts(postsData.posts || []);
+                } else {
+                    // Carica i post pubblici se non c'è utente/token
+                    const postsData = await fetchDataForEffect('/posts');
+                    if (postsData) setPosts(postsData.posts || []);
+                }
             } catch (e) {
                 console.error("Errore durante il caricamento dei dati iniziali:", e);
                 // Se l'errore è legato a un token non valido e l'utente era "loggato",
@@ -61,7 +70,7 @@ function App() {
             }
         };
         loadInitialData();
-    }); // Array di dipendenze vuoto: esegui solo al mount
+    }, []); // Array di dipendenze vuoto: esegui solo al mount
 
 
     const handleAuthSubmit = async (credentials) => {
@@ -118,21 +127,22 @@ function App() {
     const handlePostCreated = (newPost) => {
         // Aggiunge il nuovo post in cima alla lista (aggiornamento ottimistico prima del re-fetch)
         // Slide 28: Stato con Array (creare un nuovo array)
-        //TODO usare spread operator per gestire questa aggiunta
+        setPosts(prevPosts => [newPost, ...prevPosts]);
     };
 
     const handleDeletePost = async (postId) => {
         if (!window.confirm("Sei sicuro di voler eliminare questo post?")) return;
         try {
-            // TODO prendi accessToken da localStorage
-            // TODO effettua una fetch per fare la DELETE per cancellare il post
-
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await fetch(`${API_BASE_URL}/posts/${postId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${accessToken}` }
+            });
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData?.message || `Errore eliminazione: ${response.status}`);
             }
-            // TODO aggiorna l'array dei post nello stato
-
+            setPosts(prevPosts => prevPosts.filter(post => post._id !== postId));
         } catch (error) {
             console.error("Errore eliminazione post:", error);
         }
@@ -161,7 +171,6 @@ function App() {
 
 
     // Rendering condizionale basato sullo stato 'currentUser'
-    // Slide 30: Rendering condizionale
     if (!currentUser) {
         return (
             <div className="container">
@@ -180,12 +189,23 @@ function App() {
     // Vista per l'utente loggato
     return (
         <div className="container">
-            {/*TODO Composizione di componenti (slide 13) */}
+            {/* Composizione di componenti (slide 13) */}
+            <Navbar user={currentUser} onLogout={handleLogout} />
 
-            {/* TODO Mappare l'array a componenti React (slide 17: Liste e Chiavi) */}
+            <CreatePostForm onPostCreated={handlePostCreated} />
 
+            <h2>Feed</h2>
+            {/* Mappare un array a componenti React (slide 17: Liste e Chiavi) */}
+            {posts.map(post => (
+                <Post
+                    key={post._id} // Chiave univoca per ogni elemento della lista
+                    post={post}
+                    currentUser={currentUser}
+                    onDeletePost={handleDeletePost}
+                    onLikePost={handleLikePost}
+                />
+            ))}
         </div>
-
     );
 }
 
