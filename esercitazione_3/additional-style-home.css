@@ -1,0 +1,83 @@
+.post {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animazione al passaggio del mouse */
+}
+
+.post:hover {
+    transform: scale(1.02); /* Leggero ingrandimento */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più pronunciata */
+}
+
+nav ul li a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+nav ul li a:hover {
+    color: #007bff; /* Cambia colore al passaggio del mouse */
+    text-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Effetto bagliore */
+}
+
+body {
+    background: linear-gradient(to bottom, #f0f4f8, #d9e2ec); /* Gradiente chiaro */
+    font-family: 'Arial', sans-serif; /* Font più moderno */
+    color: #333; /* Colore del testo */
+}
+
+.comment-button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.comment-button:hover {
+    background-color: #0056b3; /* Colore più scuro al passaggio del mouse */
+    transform: scale(1.05); /* Leggero ingrandimento */
+}
+
+.story img {
+    border: 3px solid #007bff; /* Bordo colorato */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.story img:hover {
+    transform: scale(1.1); /* Leggero ingrandimento */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Ombra più pronunciata */
+}
+
+aside {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+#recommendations li a {
+    padding: 0.2rem 0.5rem; /* Riduce il padding */
+    margin: 0; /* Rimuove il margine */
+    /*background: none; !* Rimuove lo sfondo *!*/
+    color: #333; /* Colore del testo */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    transition: color 0.3s; /* Transizione per il colore */
+}
+
+#recommendations li a:hover {
+    color: #007bff; /* Cambia colore al passaggio del mouse */
+    text-decoration: underline; /* Aggiunge una sottolineatura */
+}
+
+body {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

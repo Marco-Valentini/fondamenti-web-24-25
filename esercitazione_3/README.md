@@ -2,7 +2,7 @@
 
 ## Introduzione
 
-Questa terza esercitazione per il corso di Fondamenti del Web riguarda lo sviluppo di funzionalità interattive per "Poligram", un'applicazione frontend che simula un social network di condivisione immagini. L'obiettivo è implementare, tramite HTML, CSS e JavaScript, la gestione dinamica dei post, includendo la loro creazione, aggiornamento e rimozione. Una struttura HTML/CSS di base dell'interfaccia è fornita come punto di partenza. Il codice relativo alla homepage può essere preso dall'esercitazione 1, il form andrà aggiunto e posizionato nella pagina principale.
+Questa terza esercitazione per il corso di Fondamenti del Web riguarda lo sviluppo di funzionalità interattive per "Poligram", un'applicazione frontend che simula un social network di condivisione immagini. L'obiettivo è implementare, tramite HTML, CSS e JavaScript, la gestione dinamica dei post, includendo la loro creazione, aggiornamento e rimozione. Una struttura HTML/CSS di base dell'interfaccia è fornita come punto di partenza.
 
 ## Obiettivi Generali del Compito
 

@@ -1,0 +1,481 @@
+/* Definiamo un grid layout per il corpo della pagina HTML */
+body{
+    display: grid;
+    grid-template-columns: 20vw 50vw 20vw 10vw;
+    grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh 10vh 20vh 10vh;
+}
+/* Procediamo andando ad inserire gli elementi della pagina html all'interno della griglia di HTML */
+
+
+header{
+    grid-column: 1;
+    grid-row:1/3;
+    /*border: solid 1px #000;*/
+    text-align: center; /* Allinea all'interno */
+}
+
+#mainnav{
+    grid-column: 1;
+    grid-row: 3/6;
+    /*border: solid 1px #000;*/
+}
+
+#secondnav{
+    grid-column: 1;
+    grid-row: 8;
+    /*border: solid 1px #000;*/
+}
+
+main{
+    grid-column: 2;
+    grid-row: 1 / 10;
+    /*border: solid 1px #000;*/
+    display: flex;
+    flex-direction: column; /* Dobbiamo posizionare i 2 div relativi a storie e post*/
+    border-right: 1px solid #ccc; /* Linea per separare dall'aside */
+}
+
+aside{
+    grid-column: 3;
+    grid-row: 1/5;
+    /*border: solid 1px #000;*/
+}
+
+#new_post{
+    grid-column: 3;
+    grid-row: 5/9;
+}
+
+footer{
+    grid-column: 3;
+    grid-row: 9;
+    /*border: solid 1px #000;*/
+    padding-top: 5vh; /* Spazio sopra il footer per spingerlo giù */
+    align-self: end;
+}
+
+/* Una volta posizionati gli elementi principali, passiamo agli elemetnti secondari*/
+
+img#logo{
+    width: auto;
+    height: 25vh;
+}
+
+#account_manager{
+    /*border: solid 1px #000;*/
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+}
+
+#account_manager a{
+    display: flex;
+    gap: 0.5rem;
+}
+
+img#profile-picture {
+    border-radius: 50%;
+    width: 50px; /* Dimensione immagine */
+    height: 50px;
+    object-fit: cover; /* l'immagine riempie completamente il contenitore mantenendo le proporzioni*/
+}
+
+a.profile-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    color: #333; /* Colore del testo */
+}
+
+.profile-link:hover .profile-name {
+    text-decoration: underline; /* Sottolinea il nome al passaggio del mouse */
+}
+
+.profile-name {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+nav li, aside li{
+    list-style: none;
+}
+
+#recommendations a{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#recommendations{
+    margin-top: 1rem; /* Spazio sopra la sezione */
+}
+
+#recommendations ul {
+    padding: 0;
+    margin: 0;
+}
+
+#recommendations li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Spazio tra immagine e nome */
+    margin-bottom: 1rem; /* Spazio tra gli elementi della lista */
+    list-style: none; /* Rimuove i punti elenco */
+}
+
+/* foto degli utenti nella lista delle raccomandazioni */
+.user-photo {
+    width: 30px; /* Dimensione immagine */
+    height: 30px;
+    border-radius: 50%; /* Forma circolare */
+    object-fit: cover;
+}
+
+.vertical-scroll {
+    overflow-y: auto; /* funziona come scroll ma ha un effetto migliore*/
+    /*border: 1px solid #ccc;*/
+    min-height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 1vh;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 1rem;
+    /*border: 1px solid #ccc;*/
+    min-height: 45vh;
+    width: 35vw;
+}
+
+.post-header {
+    display: flex;             /* Arrange user-info and button side-by-side */
+    justify-content: space-between; /* Pushes user-info to left, button to right */
+    align-items: center;       /* Vertically align items in the center */
+    width: 100%;               /* Take full width of the post's content area */
+    /* If your .post-image and .caption are 80% width and centered,
+       you might want this to also be width: 80%;
+       However, if .post has align-items: center, this header will
+       also be centered if its width is less than 100% of its container.
+       Let's assume for now it should span the same width as the image/caption.
+       Your .post already has align-items: center, and .post-image is width: 80%.
+       So this header should also be width: 80% to align.
+       If you want it full width of the post's padding box, then use width: 100%; */
+    width: 80%;                /* To match .post-image and .caption width */
+    margin-bottom: 10px;       /* Space between header and the post image */
+}
+
+.post-user-info {
+    /* This div just groups username and location. No specific flex needed here
+       as p tags will stack by default. */
+    text-align: left;
+}
+
+.post-username {
+    font-size: 0.9rem;
+    font-weight: 600;      /* Bold for username */
+    color: #262626;        /* Standard dark text color */
+    margin: 0;             /* Remove default p margin */
+    line-height: 1.2;
+}
+
+.post-location {
+    font-size: 0.75rem;
+    color: #8e8e8e;        /* Lighter grey for location (common practice) */
+    margin: 0;             /* Remove default p margin */
+    line-height: 1.2;
+}
+
+.post-delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 6px 8px;     /* Adjust padding for size */
+    border-radius: 5px;   /* Slightly rounded corners */
+    cursor: pointer;
+    font-size: 0.9rem;    /* Adjust as needed */
+    font-weight: bold;
+    line-height: 1;       /* Helps control button height with text */
+    transition: background-color 0.2s ease;
+}
+
+.post-delete-button:hover {
+    background-color: darkred;
+}
+
+
+.post-delete-button:focus {
+    outline: 2px solid blue; /* Basic focus indicator for accessibility */
+    outline-offset: 2px;
+}
+
+.post-options-button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 6px 8px;     /* Adjust padding for size */
+    border-radius: 5px;   /* Slightly rounded corners */
+    cursor: pointer;
+    font-size: 0.9rem;    /* Adjust as needed */
+    font-weight: bold;
+    line-height: 1;       /* Helps control button height with text */
+    transition: background-color 0.2s ease;
+}
+
+.post-options-button:hover {
+    background-color: darkgreen;
+}
+
+
+.post-options-button:focus {
+    outline: 2px solid blue; /* Basic focus indicator for accessibility */
+    outline-offset: 2px;
+}
+
+.post-image {
+    width: 70%;
+    height: 70%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.caption {
+    font-size: 1rem;
+    color: #333;
+    margin: 0.5rem 0;
+    text-align: left;
+    width: 80%;
+}
+
+.comment-form {
+    display: flex;
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 0.5rem;
+    /*border: 1px solid #ccc;*/
+    border-radius: 5px 0 0 5px;
+    font-size: 0.9rem;
+}
+
+.comment-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 0.9rem;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.comment-button:hover {
+    background-color: #0056b3;
+}
+
+.horizontal-scroll {
+    overflow-x: auto;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    /*border: 1px solid #ccc;*/
+    min-height: 22vh;
+}
+
+.story {
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50%;
+}
+
+.story img {
+    width: 15vh;
+    height: 15vh;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid cornflowerblue; /* Optional: Add a border around the image */
+}
+
+.story p {
+    font-size: 0.9rem;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+
+/* --- Styles for New Post Form (Revised for Grid Fit - RESIZE components) --- */
+
+/* Style the fieldset container */
+#new_post {
+    padding: 5px 8px;      /* Minimal padding */
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    box-sizing: border-box; /* Crucial for grid fitting */
+    height: 100%;          /* Occupy full grid cell height */
+    width: 100%;           /* Occupy full grid cell width */
+    display: flex;
+    flex-direction: column;
+    /* No overflow properties here */
+}
+
+/* Style the legend (title) of the fieldset */
+#new_post legend {
+    font-size: 0.9rem;     /* Significantly reduced */
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 4px;   /* Reduced */
+    padding-bottom: 2px;  /* Reduced */
+    border-bottom: 1px solid #efefef;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;      /* Prevent legend from shrinking due to form content */
+}
+
+/* Style the form element itself */
+#new_post form {
+    flex-grow: 1;          /* Allow form to attempt to use remaining space */
+    width: 100%;
+    /* The sum of heights of its children must now fit */
+    display: flex;         /* Use flex to help manage children if needed, though simple stacking */
+    flex-direction: column;
+}
+
+/* Style form labels */
+#new_post form label {
+    display: block;
+    font-weight: 600;
+    color: #444444;
+    font-size: 0.65rem;    /* Drastically reduced */
+    line-height: 1.1;      /* Tightened line height */
+    margin-top: 3px;       /* Minimal */
+    margin-bottom: 1px;    /* Minimal */
+}
+
+#new_post form label:first-of-type {
+    margin-top: 2px; /* Slightly less for the very first label after legend */
+}
+
+/* Style text inputs, select dropdowns */
+#new_post form input[type="text"],
+#new_post form select {
+    width: 100%;
+    padding: 3px 5px;      /* Minimal padding */
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 0.65rem;    /* Drastically reduced */
+    line-height: 1.1;
+    background-color: #fafafa;
+    /* The <br> tag after these in HTML adds most of the vertical space.
+       CSS margin-bottom is almost irrelevant here due to <br>. */
+}
+
+/* Specific styling for textarea */
+#new_post form textarea {
+    width: 100%;
+    padding: 3px 5px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 0.65rem;
+    line-height: 1.1;
+    background-color: #fafafa;
+    resize: none;          /* Disable user resizing to maintain layout */
+    /* --- CRITICAL for fitting: --- */
+    /* This attempts to override HTML rows="4".
+       For best results, change rows="2" or rows="1" in HTML. */
+    height: 3em;           /* Approx 2-3 lines. Adjust if needed. (0.65rem * 1.1 * ~2.5 lines) + padding */
+    min-height: auto;      /* Try to override browser default min-height */
+}
+
+/* Style for focused inputs */
+#new_post form input[type="text"]:focus,
+#new_post form textarea:focus,
+#new_post form select:focus {
+    border-color: #a8a8a8;
+    background-color: #ffffff;
+    outline: none;
+}
+
+
+/* Styling for the file input */
+#new_post form input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 1px 3px;      /* Extremely minimal padding for file input */
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    font-size: 0.6rem;     /* Even smaller for file input's "Choose File" text */
+    line-height: 1.1;
+    margin-top: 3px;
+}
+
+/* Styling for submit and reset buttons */
+#new_post form input[type="submit"],
+#new_post form input[type="reset"] {
+    display: block;
+    width: 100%;
+    padding: 4px 8px;     /* Reduced padding */
+    border-radius: 3px;
+    font-size: 0.7rem;    /* Reduced font size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 4px;      /* Reduced margin-top */
+    margin-bottom: 2px;   /* Minimal space between/after buttons */
+    line-height: 1.2;
+}
+
+/* Specific style for the "Pubblica" (Submit) button */
+#new_post form input[type="submit"] {
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    margin-top: 6px;      /* Slightly more space above primary action */
+}
+
+#new_post form input[type="submit"]:hover {
+    background-color: #0077c6;
+}
+
+/* Specific style for the "Annulla" (Reset) button */
+#new_post form input[type="reset"] {
+    background-color: #efefef;
+    color: #262626;
+    border: 1px solid #dbdbdb;
+}
+
+#new_post form input[type="reset"]:hover {
+    background-color: #dbdbdb;
+}
+/* --- End of Styles for New Post Form --- */
+
+@media (max-width: 768px) {
+    header,
+    nav,
+    aside,
+    footer {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    main{
+        grid-column: 1/5;
+        grid-row: 1 / 9;
+    }
+}
+

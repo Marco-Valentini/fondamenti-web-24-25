@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style-home.css">
+    <link rel="stylesheet" href="additional-style-home.css">
+    <meta name="description" content="Poligram è un social network per condividere e scoprire nuove idee tra le persone del Politecnico di Bari.">
+    <meta name="author" content="Marco Valentini">
+    <meta name="keywords" content="Poligram, social network, Politecnico di Bari, idee, condivisione">
+<!--    <base <href="https>://www.poligram.com/">-->
+    <title>Poligram</title>
+</head>
+<body>
+<header>
+    <img src="images/logo.png" alt="Logo Poligram" id="logo" title=Logo>
+</header>
+<nav class="leftnav" id="mainnav">
+    <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="">Cerca</a></li>
+        <li><a href="">Esplora</a></li>
+        <li><a href="">Reels</a></li>
+        <li><a href="">Messaggi</a></li>
+        <li><a href="">Notifiche</a></li>
+        <li><a href="crea.html">Crea</a></li>
+        <li><a href="">Dashboard</a></li>
+        <li><a href="profile.html">Profilo</a></li>
+    </ul>
+</nav>
+
+<nav class="leftnav" id="secondnav">
+    <ul>
+        <li><a href="https://www.meta.ai/?utm_source=ig_web_nav">Meta AI</a></li>
+        <li><a href="https://www.threads.net/?xmt=AQGz45I-u35q2YI-7FM5zfapB4vIeRsjlmW2LgA2I8TdcWA">Threads</a></li>
+        <li><a href="">Altro</a></li>
+    </ul>
+</nav>
+
+<main>
+
+    <div class="horizontal-scroll">
+        <div class="story">
+            <img src="images/user2.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user3.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user4.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user5.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user6.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user2.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user3.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user4.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user5.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <div class="story">
+            <img src="images/user6.jpg" alt="Profile 1">
+            <p>Username 1</p>
+        </div>
+        <!-- Add more stories as needed -->
+    </div>
+    <div class="vertical-scroll">
+<!--        <div class="post">
+            <div class="post-header">
+                <div class="post-user-info">
+                    <p class="post-username">Username</p>
+                    <p class="post-location">Location</p>
+                </div>
+                <button class="post-delete-button" aria-label="Post delete">X</button>
+
+            </div>
+            <img src="images/post1.jpg" alt="Post Image 1" class="post-image">
+            <p class="caption">This is the caption for Post 1</p>
+            <form class="comment-form">
+                <input type="text" placeholder="Add a comment..." class="comment-input">
+                <button type="submit" class="comment-button">Post</button>
+            </form>
+        </div>-->
+
+
+        <!-- Add more posts as needed -->
+    </div>
+</main>
+
+
+<aside>
+    <div id="account_manager">
+        <a href="profile.html" class="profile-link">
+            <img src="images/user.jpg" alt="Profile Picture" id="profile-picture">
+            <span class="profile-name">Il Mio Profilo</span>
+        </a>
+    </div>
+    <div id="recommendations">
+        <ul>
+            <li>
+                <a href="">
+                    <img src="images/user3.jpg" alt="Utente 1" class="user-photo">
+                    <span class="recommended-user">Utente 3</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="images/user4.jpg" alt="Utente 2" class="user-photo">
+                    <span class="recommended-user">Utente 4</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="images/user6.jpg" alt="Utente 3" class="user-photo">
+                    <span class="recommended-user">Utente 3</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="images/user5.jpg" alt="Utente" class="user-photo">
+                    <span class="recommended-user">Utente 5</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="images/user2.jpg" alt="Utente" class="user-photo">
+                    <span class="recommended-user">Utente 2</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<fieldset id="new_post">
+    <legend>Nuovo Post</legend>
+    <form action="home.html" method="post">
+        <label for="author">Utente:</label><br>
+        <input type="text" id="author" name="author" required placeholder="Inserisci qui l'utente che pubblica"><br>
+        <label for="location">Luogo:</label><br>
+        <input type="text" id="location" name="location" list="mySuggestion"><br>
+        <datalist id="mySuggestion">
+            <option value="Bari">Bari</option>
+            <option value="Politecnico di Bari">Politecnico di Bari</option>
+            <option value="Lecce">Lecce</option>
+            <option value="Foggia">Foggia</option>
+            <option value="Taranto">Taranto</option>
+            <option value="Brindisi">Brindisi</option>
+            <option value="BAT">Barletta Andria Trani</option>
+        </datalist>
+        <label for="caption">Descrizione:</label><br>
+        <textarea id="caption" name="caption" rows="4" cols="50" required placeholder="Inserisci qui la caption del tuo post"></textarea><br>
+        <label for="post_comments">Accetta Commenti:</label><br>
+        <select id="post_comments" name="post_comments">
+            <option value="true">Si</option>
+            <option value="false">No</option>
+        </select><br>
+        <input type="file" id="image" name="image" accept="image/jpeg, image/jpg, image/png"><br>
+        <input type="submit" value="Pubblica">
+        <input type="reset" value="Annulla">
+    </form>
+</fieldset>
+
+<footer>
+    © 2025 Poligram from SisInfLab
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
